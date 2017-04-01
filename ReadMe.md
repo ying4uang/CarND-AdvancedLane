@@ -32,14 +32,14 @@ The goals / steps of this project are the following:
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
 ---
-###Writeup / README
+### Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
 
 
-###Camera Calibration
+### Camera Calibration
 
-####1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
+#### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
 The code for this step is contained in the first code cell of the IPython notebook located in "Calibration.ipynb".  
 
@@ -72,12 +72,12 @@ for idx, fname in enumerate(images):
         imgpoints.append(corners)
 ```
 
-###Pipeline (single images)
+### Pipeline (single images)
 
-####1. Provide an example of a distortion-corrected image.
+#### 1. Provide an example of a distortion-corrected image.
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
 ![alt text][image2]
-####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
+#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 I used a combination of color and gradient thresholds to generate a binary image (function color_threshold() and abs_sobel_thresh()).  For color thresholding I used hls and hsv schemes with filters on s and v channels. Here's an example of my output for this step.  
 
 ![alt text][image3]
@@ -90,7 +90,7 @@ I used a combination of color and gradient thresholds to generate a binary image
 
 ```
 
-####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+#### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 The code for my perspective transform includes steps in `process_img()`, which appears in lines 1 through 8 in the file `AdvancedLane.ipython`  in the 2nd code cell of the IPython notebook).  The `process_img()` function takes as inputs an image (`img`).  The source area we are trying to focus on is in the shape of a trapezoid. So we want to find out the four points in the trapezoid and transform them to our destination points. For the bottom of the trapezoid I am using the bot_trim to cut off the car hood. I also assumed the center of the picture is the center of the trapezoid and we are taking a certain percent off the middle(mid_width/2 and bot_width/2) to calculate x coordinates  of the four points. In addition, taking a certain percentage(height_pct, bot_width) of the picture height to get the y of the top of the trapezoid  :
 
@@ -116,7 +116,7 @@ Below is the result for the transformed image for image 0.
 
 ![alt text][image4]
 
-####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 I used sliding window medthod to apply convolution to maximize hot pixels in each window and thresholded the left and right lanes. The are included in the AdvancedLane.ipython file in the process_img function. The window fitting result and codes are pasted below:
 
@@ -138,7 +138,7 @@ I used sliding window medthod to apply convolution to maximize hot pixels in eac
 
 
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
 The code of identifying lane curature is in the process_img() function with curverad being the variable of curve radius.
 
@@ -155,24 +155,24 @@ curve_fit_cr = np.polyfit(np.array(res, np.float32)*ym_per_pix, np.array(leftx, 
 
 
 
-####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 Below is an exmaple out put of the test images.
 
 ![alt text][image6]
 
 ---
 
-###Pipeline (video)
+### Pipeline (video)
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 Here's a [link to my video result](https://youtu.be/lNIP5YH7fqc)
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 I spent quite some time on identifying the source and destination points for the trapezoid area. I followed the Q&A session and obtained the points through certain percent of the height and width. However, this is still hardcoding since  we know farely well where the sky/ car hood is. To improve this process we can try to automatically identify the trapezoid area.
 
