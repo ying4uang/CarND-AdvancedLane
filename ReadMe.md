@@ -26,15 +26,11 @@ The goals / steps of this project are the following:
 [image7]: ./output_images/warped.jpg "Warped"
 [image8]: ./output_images/fin0.jpg "Final"
 
-[video1]: ./project_video.mp4 "Video"
+[video1]: ./dummy.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
----
-### Writeup / README
-
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
 
 
 ### Camera Calibration
@@ -75,7 +71,17 @@ for idx, fname in enumerate(images):
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
+
+To obtain the undistorted image. I loaded the parameters from pickle file from last step and undistort the image. The code and output of one test image is pasted below(they are part of the process_img function)
+
+```
+	dist_pickle = pickle.load(open( "calibration_pickle/dist_pickle.p", "rb" ) )
+    mtx = dist_pickle["mtx"]
+    dist = dist_pickle["dist"]
+
+    img = cv2.undistort(img, mtx, dist, None, mtx)
+    
+```
 ![alt text][image2]
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 I used a combination of color and gradient thresholds to generate a binary image (function color_threshold() and abs_sobel_thresh()).  For color thresholding I used hls and hsv schemes with filters on s and v channels. Here's an example of my output for this step.  
