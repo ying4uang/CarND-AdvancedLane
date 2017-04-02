@@ -182,3 +182,6 @@ Here's a [link to my video result](https://youtu.be/APdTBTu8Vvw)
 
 I spent quite some time on identifying the source and destination points for the trapezoid area. I followed the Q&A session and obtained the points through certain percent of the height and width. However, this is still hardcoding since  we know farely well where the sky/ car hood is. To improve this process we can try to automatically identify the trapezoid area.
 
+
+Weather or light conditions as well as road conditions could vary, which could cause the lines to be not identifiable or be filled with noises. So next steps could be to improve the pipeline to take into consideration on those challenging conditions.
+
